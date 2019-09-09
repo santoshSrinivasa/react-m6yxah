@@ -1,16 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import './style.css';
 
-const App = () => {
-  const emp = [
-    {name:"abc",isDeveloper:true},
-    {name:"def",isDeveloper:false}
-  ];
-  return (
-    <ul>
-    {emp.filter(isdeveloper => isdeveloper.isDeveloper).map(emp1 => <li>{emp1.name}</li>)}
-    </ul>
-  );
+class App extends React.Component
+{
+  constructor(props)
+  {
+    super(props);
+    this.state={
+      value:''
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event)
+  {
+    console.log(event.target.value);
+    this.setState({value:event.target.value});
+  }
+  handleSubmit(event)
+  {
+    alert('nmae was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+  render()
+  {
+    return(
+      <form onSubmit={this.handleSubmit}>
+      <label>name:</label>
+      <input type="text" value={this.state.value} onChange={this.handleChange}/>
+      <input type="submit" value="Submit" />
+      </form>
+    );
+  }
 }
-render(<App />, document.getElementById('root'));
+
+render(<App/>,document.getElementById('root'));
